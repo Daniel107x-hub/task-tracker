@@ -1,8 +1,6 @@
-using JsonLexer;
-
 namespace JsonParserLib;
 
-class Token
+public class Token
 {
     public TokenType Type { get; }
     public string Value { get; }

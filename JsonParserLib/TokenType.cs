@@ -1,14 +1,8 @@
-namespace JsonLexer;
+namespace JsonParserLib;
 
-enum TokenType
+public enum TokenType
 {
-    OpenBrace,
-    CloseBrace,
-    OpenBracket,
-    CloseBracket,
-    Colon,
-    Semicolon,
-    Comma,
+    Syntax,
     String,
     Number,
     True,
