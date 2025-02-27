@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTracker", "TaskTracker\TaskTracker.csproj", "{AA466367-74B1-4CF9-B75B-73D3149CD748}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonParserLib", "JsonParserLib\JsonParserLib.csproj", "{18C8F689-357B-42C1-8B9D-039C9D465CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonParserLib.Tests", "JsonParserLib.Tests\JsonParserLib.Tests.csproj", "{9ECC9999-3607-4151-A86C-4B09C82BFA2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA466367-74B1-4CF9-B75B-73D3149CD748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA466367-74B1-4CF9-B75B-73D3149CD748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA466367-74B1-4CF9-B75B-73D3149CD748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA466367-74B1-4CF9-B75B-73D3149CD748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18C8F689-357B-42C1-8B9D-039C9D465CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18C8F689-357B-42C1-8B9D-039C9D465CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18C8F689-357B-42C1-8B9D-039C9D465CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18C8F689-357B-42C1-8B9D-039C9D465CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ECC9999-3607-4151-A86C-4B09C82BFA2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ECC9999-3607-4151-A86C-4B09C82BFA2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ECC9999-3607-4151-A86C-4B09C82BFA2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ECC9999-3607-4151-A86C-4B09C82BFA2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
