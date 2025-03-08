@@ -16,7 +16,18 @@ Metadata GetMetadata()
     return metadata;
 }
 
+void SaveMetadata(Metadata metadata)
+{
+    FileStream fileStream = new(META, FileMode.OpenOrCreate);
+    StreamWriter writer = new(fileStream);
+    var text = JsonSerializer.Serialize(metadata);
+    writer.Write(text);
+    writer.Close();
+    fileStream.Close();
+}
+
 Metadata metadata = GetMetadata();
+List<Task> tasks = GetTasks(FILE);
 if (args.Length == 0)
 {
     Console.WriteLine("Please provide a command and arguments if needed");
@@ -32,10 +43,11 @@ switch (command)
             return;
         }
         var description = args[1];
-        List<Task> tasks = GetTasks(FILE);
-        Task task = new(1, description); 
+        Task? task = new(metadata.Counter++, description); 
         tasks.Add(task);
         SaveTasks(tasks);
+        Console.WriteLine($"Saved task {task.Id}");
+        SaveMetadata(metadata);
         break;
     
     case "list":
@@ -50,6 +62,23 @@ switch (command)
         foreach (Task item in tasks) Console.WriteLine(item);
         break;
     
+    case "mark-done":
+        if (args.Length < 2)
+        {
+            Console.WriteLine("Please provide a task to be updated");
+            return;
+        }
+        long id = long.Parse(args[1]);
+        task = tasks.Find(task => task.Id == id);
+        if (task == null)
+        {
+            Console.WriteLine("The provided ID is not valid");
+            return;
+        }
+        task.MarkDone();
+        SaveTasks(tasks);
+        break;
+    
     default:
         Console.WriteLine("Command not identified");
         break;
@@ -57,7 +86,16 @@ switch (command)
 
 List<Task> GetTasks(string path, Status? filter = null)
 {
-    FileStream fileStream = new(path, FileMode.OpenOrCreate);
+    FileStream fileStream;
+    if (!File.Exists(path))
+    {
+        fileStream = new FileStream(path, FileMode.Create);
+        StreamWriter streamWriter = new(fileStream);
+        streamWriter.Write("[]");
+        streamWriter.Close();
+        fileStream.Close();
+    }
+    fileStream = new(path, FileMode.Open);
     StreamReader sr = new(fileStream);
     var text = sr.ReadToEnd();
     List<Task>? tasks = JsonSerializer.Deserialize<List<Task>>(text);
@@ -131,6 +169,16 @@ class Task
     public override string ToString()
     {
         return $"Id: {Id} | Description: {Description} | Status: {StatusToString(Status)}";
+    }
+
+    public void MarkDone()
+    {
+        Status = Status.Done;
+    }
+
+    public void MarkInProgress()
+    {
+        Status = Status.InProgress;
     }
 }
 
