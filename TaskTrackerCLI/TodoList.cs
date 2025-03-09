@@ -13,12 +13,13 @@ public class TodoList
     {
         // Temporarily just handle a single todo list
         var files = Directory.GetFiles(".", "*.tasks.json");
-        if (files.Length == 0) Initialize();
-        else
+        if (files.Length == 0)
         {
-            var fileName = files[0].Split(".tasks.json")[0].Replace("./", "");
-            _uid = new Guid(fileName);
+            Initialize();
+            return;
         }
+        var fileName = files[0].Split(".tasks.json")[0].Replace("./", "");
+        _uid = new Guid(fileName);
         var tasksFileName = _uid + ".tasks.json";
         var metadataFileName = _uid + ".meta.json";
         _list = LoadFile<List<Todo>>(tasksFileName);
@@ -30,15 +31,17 @@ public class TodoList
         _uid = Guid.NewGuid();
         string tasksFileName = _uid + ".tasks.json";
         string metadataFileName = _uid + ".meta.json";
+        _list = new();
         FileStream fileStream = new(tasksFileName, FileMode.Create);
         StreamWriter writer = new(fileStream);
-        writer.Write("[]");
+        var text = JsonSerializer.Serialize(_list);
+        writer.Write(text);
         writer.Close();
         fileStream.Close();
-        Metadata metadata = new Metadata();
+        _metadata = new Metadata();
         fileStream = new(metadataFileName, FileMode.Create);
         writer = new(fileStream);
-        var text = JsonSerializer.Serialize(metadata);
+        text = JsonSerializer.Serialize(_metadata);
         writer.Write(text);
         writer.Close();
         fileStream.Close();
